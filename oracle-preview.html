@@ -6,15 +6,17 @@
     <title>Oracle of the Body</title>
     <style>
 :root {
-  --paper: #eee7dd;
-  --bone: #f7f1e8;
-  --veil: #dfd1c2;
-  --ink: #422626;
-  --wine: #875b61;
-  --olive: #52530c;
-  --moss: #6a6b28;
-  --gold: #b49b73;
-  --shadow: rgba(40, 25, 20, 0.22);
+  --cream: #f9f7f4;
+  --paper: #f4eee8;
+  --rose: #b98ca6;
+  --mauve: #7e6170;
+  --plum: #6b4c5a;
+  --violet: #cbb9e8;
+  --blue: #a8c7e8;
+  --gold: #d6b36a;
+  --copper: #c68e6a;
+  --ink: #1e1524;
+  --glass: rgba(255, 255, 255, 0.38);
 }
 
 * {
@@ -27,15 +29,12 @@ html {
 
 body {
   margin: 0;
-  background:
-    radial-gradient(circle at 18% 5%, rgba(135, 91, 97, 0.16), transparent 34rem),
-    linear-gradient(180deg, #f2eae2 0%, #e2d6c8 100%);
-  color: var(--ink);
+  min-height: 100vh;
+  background: var(--cream);
+  color: var(--plum);
+  cursor: none;
   font-family: Georgia, "Times New Roman", serif;
-}
-
-button {
-  font: inherit;
+  overflow-x: hidden;
 }
 
 a {
@@ -43,213 +42,548 @@ a {
   text-decoration: none;
 }
 
-.site-shell {
-  min-height: 100vh;
-  overflow: hidden;
+button,
+input {
+  font: inherit;
 }
 
-.topbar {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 1.1rem clamp(1rem, 4vw, 3.5rem) 0.6rem;
-  background: rgba(244, 235, 226, 0.92);
-  border-bottom: 1px solid rgba(135, 91, 97, 0.28);
-}
-
-.icon-link {
-  width: 1.35rem;
-  height: 1.35rem;
-  border: 2px solid var(--wine);
-  border-radius: 0.35rem;
-  display: grid;
-  place-items: center;
-  opacity: 0.9;
-}
-
-.icon-link span {
-  width: 0.4rem;
-  height: 0.4rem;
+.cursor-aura {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 8rem;
+  height: 8rem;
   border-radius: 50%;
-  background: var(--wine);
+  pointer-events: none;
+  opacity: 0.72;
+  mix-blend-mode: screen;
+  background: radial-gradient(circle, rgba(247, 214, 230, 0.65) 0%, rgba(203, 185, 232, 0.25) 42%, transparent 72%);
+  filter: blur(10px);
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.site-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.6), transparent 60%),
+    linear-gradient(180deg, #f9f7f4 0%, #f0e9e4 100%);
+}
+
+.site-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.06;
+  background-image:
+    linear-gradient(rgba(185, 140, 166, 0.7) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(185, 140, 166, 0.7) 1px, transparent 1px);
+  background-size: 90px 90px;
+}
+
+.aurora {
+  position: absolute;
+  width: 42rem;
+  height: 42rem;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.45;
+  animation: pulse 8s ease-in-out infinite;
+}
+
+.aurora-rose {
+  top: -12rem;
+  left: -8rem;
+  background: #f7d6e6;
+}
+
+.aurora-lilac {
+  right: -10rem;
+  bottom: -16rem;
+  background: #cbb9e8;
+  animation-delay: -2s;
+}
+
+.aurora-blue {
+  top: 30%;
+  left: 40%;
+  width: 26rem;
+  height: 26rem;
+  background: #a8c7e8;
+  animation-delay: -4s;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 6rem;
+  background: linear-gradient(180deg, #fff, transparent);
+  opacity: 0;
+  transform: rotate(35deg);
+  animation: shoot 8s linear infinite;
+}
+
+.star-1 { left: 8%; top: 8%; animation-delay: 0s; }
+.star-2 { left: 18%; top: 68%; animation-delay: 1.2s; }
+.star-3 { left: 31%; top: 22%; animation-delay: 2.4s; }
+.star-4 { left: 46%; top: 48%; animation-delay: 3.6s; }
+.star-5 { left: 61%; top: 12%; animation-delay: 4.8s; }
+.star-6 { left: 72%; top: 58%; animation-delay: 6s; }
+.star-7 { left: 86%; top: 28%; animation-delay: 7.2s; }
+.star-8 { left: 94%; top: 76%; animation-delay: 8.4s; }
+
+.navbar {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.35rem clamp(1rem, 5vw, 4rem);
 }
 
 .brand {
-  text-align: center;
-  display: grid;
-  justify-items: center;
-  gap: 0.18rem;
-}
-
-.brand-mark {
-  width: 5.6rem;
-  height: 5.6rem;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(135, 91, 97, 0.35);
-  background: var(--bone);
-  color: var(--wine);
-  font-size: 3rem;
-  line-height: 1;
-  box-shadow: 0 0.7rem 1.6rem rgba(71, 42, 35, 0.08);
-}
-
-.brand-title {
-  text-transform: uppercase;
-  letter-spacing: 0.18rem;
-  color: var(--wine);
-  font-size: 0.84rem;
-}
-
-.brand-subtitle {
-  color: var(--ink);
-  font-size: 0.72rem;
-}
-
-.utility-nav {
-  justify-self: end;
   display: flex;
-  gap: clamp(0.8rem, 3vw, 2.2rem);
   align-items: center;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid var(--wine);
+  gap: 1rem;
+  min-width: 0;
 }
 
-.main-nav {
-  display: flex;
-  justify-content: center;
-  gap: clamp(1rem, 3vw, 2.1rem);
-  padding: 0.9rem 1rem 1rem;
-  background: rgba(244, 235, 226, 0.92);
-  box-shadow: 0 0.9rem 1.8rem rgba(74, 44, 36, 0.08);
-}
-
-.main-nav a,
-.utility-nav a {
-  font-size: 1rem;
+.logo-mark {
   position: relative;
+  width: 5rem;
+  height: 5rem;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  border: 1px solid rgba(185, 140, 166, 0.4);
+  background:
+    radial-gradient(circle at 50% 38%, rgba(255, 255, 255, 0.9), transparent 38%),
+    linear-gradient(145deg, #f4e7e1, #e5d1e8 58%, #cfe7f5);
+  box-shadow: 0 1rem 2.5rem rgba(126, 97, 112, 0.18);
 }
 
-.main-nav a::after,
-.utility-nav a::after {
+.logo-face {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1.55rem;
+  height: 2.5rem;
+  border-radius: 50% 50% 45% 45%;
+  border: 1px solid rgba(107, 76, 90, 0.52);
+  transform: translate(-50%, -50%);
+}
+
+.logo-face::before,
+.logo-face::after {
   content: "";
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -0.25rem;
-  height: 1px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: center;
-  transition: transform 180ms ease;
+  top: 42%;
+  width: 0.28rem;
+  height: 0.28rem;
+  border-radius: 50%;
+  background: rgba(107, 76, 90, 0.6);
 }
 
-.main-nav a:hover::after,
-.utility-nav a:hover::after {
-  transform: scaleX(1);
+.logo-face::before { left: 28%; }
+.logo-face::after { right: 28%; }
+
+.logo-orbit {
+  position: absolute;
+  inset: 0.75rem;
+  border: 1px solid rgba(214, 179, 106, 0.72);
+  border-radius: 50%;
+  transform: rotate(-18deg);
+}
+
+.brand strong {
+  display: block;
+  color: var(--rose);
+  font-size: clamp(1rem, 2vw, 1.45rem);
+  font-weight: 400;
+  letter-spacing: 0.22rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.brand small {
+  display: block;
+  margin-top: 0.35rem;
+  color: #9f7aa8;
+  font-size: 0.72rem;
+  letter-spacing: 0.24rem;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  gap: clamp(1rem, 3vw, 2.4rem);
+  color: #7e6170;
+  font-size: 0.92rem;
+}
+
+.nav-links a {
+  transition: color 180ms ease;
+}
+
+.nav-links a:hover {
+  color: var(--copper);
+}
+
+.pill-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0.85rem 1.25rem;
+  border-radius: 999px;
+  border: 1px solid rgba(214, 179, 106, 0.5);
+  font-size: 0.92rem;
+  transition: transform 220ms ease, background 220ms ease, box-shadow 220ms ease;
+}
+
+.pill-button:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.pill-button.soft,
+.pill-button.glass {
+  background: rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 1rem 2rem rgba(126, 97, 112, 0.12);
+}
+
+.pill-button.gold {
+  color: white;
+  border-color: transparent;
+  background: linear-gradient(90deg, var(--gold), var(--copper));
+  box-shadow: 0 1rem 2.5rem rgba(198, 142, 106, 0.24);
 }
 
 .hero {
-  --cursor-x: 50%;
-  --cursor-y: 48%;
-  min-height: min(46rem, calc(100vh - 9rem));
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  min-height: 100vh;
   display: grid;
   place-items: center;
-  background:
-    radial-gradient(circle at var(--cursor-x) var(--cursor-y), rgba(233, 216, 186, 0.24), transparent 16rem),
-    linear-gradient(rgba(35, 22, 20, 0.35), rgba(35, 22, 20, 0.5)),
-    radial-gradient(circle at 50% 45%, rgba(247, 241, 232, 0.34), transparent 22rem),
-    linear-gradient(135deg, #2b1f1d 0%, #6c5a4b 48%, #2f2521 100%);
-  border-bottom: 1px solid var(--wine);
-  overflow: hidden;
+  padding: 2rem clamp(1rem, 5vw, 4rem);
 }
 
 .hero::before {
   content: "";
   position: absolute;
-  inset: 1.7rem;
-  border: 2px solid rgba(180, 155, 115, 0.65);
-  box-shadow: inset 0 0 0 1px rgba(247, 241, 232, 0.2);
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle at var(--cursor-x, 20%) var(--cursor-y, 30%), rgba(247, 214, 230, 0.35), transparent 38%);
+  animation: driftGlow 12s ease-in-out infinite alternate;
 }
 
-.hero::after {
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(22rem, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+  width: min(90rem, 100%);
+}
+
+.hero-copy {
+  transform: translateY(calc(var(--scroll-y, 0) * -0.16px));
+  opacity: var(--hero-opacity, 1);
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0 0 1.7rem;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 1rem 2rem rgba(126, 97, 112, 0.14);
+  color: #8a6d7c;
+  font-size: 0.82rem;
+  letter-spacing: 0.11rem;
+  text-transform: uppercase;
+}
+
+.status-pill span {
+  width: 0.52rem;
+  height: 0.52rem;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 1rem rgba(214, 179, 106, 0.8);
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 1.4rem;
+  color: #7e6170;
+  font-size: clamp(4rem, 10vw, 7.5rem);
+  font-weight: 400;
+  line-height: 0.9;
+}
+
+.hero-copy > p:not(.status-pill) {
+  max-width: 39rem;
+  color: #866c78;
+  font-size: clamp(1.08rem, 2vw, 1.28rem);
+  line-height: 1.75;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.portal-wrap {
+  position: relative;
+  min-height: 42rem;
+  display: grid;
+  place-items: center;
+  transform: scale(var(--portal-scale, 1)) rotate(calc(var(--scroll-y, 0) * 0.05deg));
+}
+
+.orbit,
+.portal,
+.orbit-symbol {
+  position: absolute;
+}
+
+.orbit {
+  border-radius: 50%;
+  border: 1px solid;
+  animation: spin 40s linear infinite;
+}
+
+.orbit-one {
+  width: min(36rem, 82vw);
+  height: min(36rem, 82vw);
+  border-color: rgba(214, 179, 106, 0.22);
+}
+
+.orbit-two {
+  width: min(30rem, 70vw);
+  height: min(30rem, 70vw);
+  border-color: rgba(203, 185, 232, 0.36);
+  animation-duration: 30s;
+  animation-direction: reverse;
+}
+
+.orbit-symbol {
+  color: rgba(214, 179, 106, 0.78);
+  font-size: 2rem;
+  animation: float 5s ease-in-out infinite;
+}
+
+.symbol-1 { top: 16%; left: 22%; }
+.symbol-2 { right: 15%; top: 40%; animation-delay: -1.5s; }
+.symbol-3 { left: 52%; bottom: 16%; animation-delay: -3s; }
+
+.portal {
+  width: min(26rem, 74vw);
+  height: min(26rem, 74vw);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(28px);
+  box-shadow: 0 0 5rem rgba(214, 179, 106, 0.25);
+  animation: float 6s ease-in-out infinite;
+}
+
+.portal::before {
   content: "";
   position: absolute;
   inset: 0;
+  background: linear-gradient(135deg, rgba(247, 214, 230, 0.3), rgba(203, 185, 232, 0.2), rgba(168, 199, 232, 0.3));
+}
+
+.portal-glow {
+  position: absolute;
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  background: rgba(247, 214, 230, 0.45);
+  filter: blur(48px);
+}
+
+.third-eye {
+  position: absolute;
+  z-index: 4;
+  top: 30%;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 2.5rem rgba(214, 179, 106, 0.9);
+  animation: pulse 2.6s ease-in-out infinite;
+}
+
+.split-body {
+  position: relative;
+  z-index: 3;
+  width: 7rem;
+  height: 14rem;
+  opacity: 0.84;
+}
+
+.split-left {
+  border-radius: 999px 0 0 999px;
+  background: linear-gradient(180deg, #f4e7e1, #b98ca6);
+}
+
+.split-right {
+  border-radius: 0 999px 999px 0;
+  background: linear-gradient(180deg, #cbb9e8, #a8c7e8);
+}
+
+.particle {
+  position: absolute;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.72);
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.p1 { left: 20%; top: 22%; }
+.p2 { left: 68%; top: 18%; animation-delay: -0.5s; }
+.p3 { left: 74%; top: 62%; animation-delay: -1s; }
+.p4 { left: 25%; top: 72%; animation-delay: -1.5s; }
+.p5 { left: 46%; top: 16%; animation-delay: -2s; }
+.p6 { left: 52%; top: 80%; animation-delay: -2.5s; }
+
+.cabinet-section {
+  position: relative;
+  z-index: 4;
+  padding: clamp(4rem, 10vw, 8rem) clamp(1rem, 5vw, 4rem);
+}
+
+.cabinet {
+  --cabinet-x: 50%;
+  --cabinet-y: 48%;
+  position: relative;
+  min-height: 43rem;
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(214, 179, 106, 0.4);
+  background:
+    radial-gradient(circle at var(--cabinet-x) var(--cabinet-y), rgba(233, 216, 186, 0.24), transparent 17rem),
+    linear-gradient(rgba(35, 22, 20, 0.28), rgba(35, 22, 20, 0.42)),
+    linear-gradient(135deg, #35282d 0%, #7e6170 50%, #2a2025 100%);
+  box-shadow: 0 2rem 5rem rgba(30, 21, 36, 0.18);
+}
+
+.cabinet::before {
+  content: "";
+  position: absolute;
+  inset: 1.35rem;
+  border: 2px solid rgba(214, 179, 106, 0.55);
+  pointer-events: none;
+}
+
+.cabinet::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
   background-image:
-    linear-gradient(rgba(247, 241, 232, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(247, 241, 232, 0.045) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 4.5rem 4.5rem;
-  mix-blend-mode: screen;
-  opacity: 0.6;
+  pointer-events: none;
 }
 
 .corner {
   position: absolute;
-  width: 4.4rem;
-  height: 4.4rem;
   z-index: 3;
-  border-color: rgba(230, 211, 176, 0.86);
+  width: 4rem;
+  height: 4rem;
+  border-color: rgba(244, 231, 225, 0.82);
 }
 
-.corner-tl {
-  top: 2rem;
-  left: 2rem;
-  border-top: 2px solid;
-  border-left: 2px solid;
+.corner-tl { top: 1.8rem; left: 1.8rem; border-top: 2px solid; border-left: 2px solid; }
+.corner-tr { top: 1.8rem; right: 1.8rem; border-top: 2px solid; border-right: 2px solid; }
+.corner-bl { bottom: 1.8rem; left: 1.8rem; border-bottom: 2px solid; border-left: 2px solid; }
+.corner-br { bottom: 1.8rem; right: 1.8rem; border-bottom: 2px solid; border-right: 2px solid; }
+
+.cabinet-copy {
+  position: relative;
+  z-index: 5;
+  width: min(42rem, calc(100% - 2rem));
+  margin: 0 auto;
+  text-align: center;
+  color: rgba(249, 247, 244, 0.9);
 }
 
-.corner-tr {
-  top: 2rem;
-  right: 2rem;
-  border-top: 2px solid;
-  border-right: 2px solid;
+.section-kicker,
+.panel-kicker {
+  margin-bottom: 0.85rem;
+  color: var(--rose);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.24rem;
+  text-transform: uppercase;
 }
 
-.corner-bl {
-  bottom: 2rem;
-  left: 2rem;
-  border-bottom: 2px solid;
-  border-left: 2px solid;
+.cabinet-copy .section-kicker,
+.panel-kicker {
+  color: #ead1b3;
 }
 
-.corner-br {
-  bottom: 2rem;
-  right: 2rem;
-  border-bottom: 2px solid;
-  border-right: 2px solid;
+h2 {
+  color: #7e6170;
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  font-weight: 400;
+  line-height: 0.96;
 }
 
-.hero-bg > * {
-  position: absolute;
+.cabinet h2 {
+  color: #f4e7e1;
+}
+
+.cabinet-copy p:last-child,
+.section-heading p {
+  max-width: 42rem;
+  margin-inline: auto;
+  line-height: 1.7;
+  font-size: 1.05rem;
 }
 
 .artifact {
+  position: absolute;
+  z-index: 4;
   appearance: none;
   border: 0;
   padding: 0;
-  color: inherit;
   cursor: pointer;
-  pointer-events: auto;
+  background: transparent;
   --tx: 0px;
   --ty: 0px;
-  transition:
-    opacity 180ms ease,
-    filter 180ms ease,
-    transform 220ms ease;
-}
-
-.artifact::selection {
-  background: transparent;
+  transition: opacity 180ms ease, filter 180ms ease, transform 220ms ease;
 }
 
 .artifact:hover,
 .artifact:focus-visible,
 .artifact.is-active {
   opacity: 0.88;
-  filter: drop-shadow(0 0 1.1rem rgba(233, 216, 186, 0.46));
+  filter: drop-shadow(0 0 1.1rem rgba(233, 216, 186, 0.48));
 }
 
 .artifact:focus-visible {
@@ -257,14 +591,10 @@ a {
   outline-offset: 0.55rem;
 }
 
-.artifact::before {
-  pointer-events: none;
-}
-
 .anatomy-skull {
-  left: 9%;
-  bottom: 10%;
-  width: min(24vw, 18rem);
+  left: 8%;
+  bottom: 12%;
+  width: min(22vw, 16rem);
   aspect-ratio: 0.72;
   border-radius: 48% 48% 40% 40%;
   background:
@@ -272,8 +602,7 @@ a {
     radial-gradient(circle at 64% 40%, rgba(35, 22, 20, 0.72) 0 12%, transparent 13%),
     linear-gradient(180deg, rgba(247, 241, 232, 0.54), rgba(191, 178, 159, 0.18));
   border: 1px solid rgba(238, 231, 221, 0.16);
-  opacity: 0.48;
-  filter: blur(0.2px);
+  opacity: 0.45;
   transform: translate3d(var(--tx), var(--ty), 0);
 }
 
@@ -299,17 +628,17 @@ a {
 }
 
 .oracle-hand {
-  right: 28%;
-  bottom: 9%;
-  width: min(27vw, 20rem);
-  height: min(38vw, 28rem);
-  border: 1px solid rgba(238, 231, 221, 0.2);
+  right: 29%;
+  bottom: 10%;
+  width: min(24vw, 18rem);
+  height: min(34vw, 25rem);
+  border: 1px solid rgba(238, 231, 221, 0.22);
   border-radius: 45% 45% 36% 36%;
   background:
     linear-gradient(90deg, transparent 8%, rgba(238, 231, 221, 0.18) 9% 15%, transparent 16%),
     linear-gradient(180deg, rgba(238, 231, 221, 0.18), rgba(92, 65, 52, 0.12));
+  opacity: 0.56;
   transform: translate3d(var(--tx), var(--ty), 0) rotate(-8deg);
-  opacity: 0.55;
 }
 
 .oracle-hand::before {
@@ -327,30 +656,13 @@ a {
 .palm-line {
   position: absolute;
   height: 1px;
-  background: rgba(180, 155, 115, 0.72);
+  background: rgba(214, 179, 106, 0.78);
   transform-origin: left;
 }
 
-.line-one {
-  width: 58%;
-  left: 22%;
-  top: 43%;
-  transform: rotate(13deg);
-}
-
-.line-two {
-  width: 48%;
-  left: 26%;
-  top: 54%;
-  transform: rotate(-18deg);
-}
-
-.line-three {
-  width: 38%;
-  left: 40%;
-  top: 65%;
-  transform: rotate(32deg);
-}
+.line-one { width: 58%; left: 22%; top: 43%; transform: rotate(13deg); }
+.line-two { width: 48%; left: 26%; top: 54%; transform: rotate(-18deg); }
+.line-three { width: 38%; left: 40%; top: 65%; transform: rotate(32deg); }
 
 .moon {
   position: absolute;
@@ -368,14 +680,14 @@ a {
 .moon-6 { top: 38%; right: -16%; background: rgba(230, 211, 176, 0.42); }
 
 .tarot-card {
-  right: 12%;
-  top: 22%;
-  width: min(11vw, 7.2rem);
+  right: 10%;
+  top: 18%;
+  width: min(10vw, 7rem);
   aspect-ratio: 0.64;
-  border: 2px solid rgba(180, 155, 115, 0.72);
-  transform: translate3d(var(--tx), var(--ty), 0) rotate(12deg);
-  opacity: 0.46;
+  border: 2px solid rgba(214, 179, 106, 0.72);
+  opacity: 0.5;
   background: rgba(45, 31, 27, 0.32);
+  transform: translate3d(var(--tx), var(--ty), 0) rotate(12deg);
 }
 
 .tarot-card::before {
@@ -395,9 +707,9 @@ a {
 }
 
 .body-map {
-  left: 31%;
-  top: 9%;
-  width: min(22vw, 17rem);
+  left: 28%;
+  top: 10%;
+  width: min(20vw, 15rem);
   aspect-ratio: 1;
   border-radius: 50%;
   border: 1px solid rgba(230, 211, 176, 0.25);
@@ -437,7 +749,7 @@ a {
   position: absolute;
   right: clamp(1.2rem, 4vw, 4rem);
   bottom: clamp(1.2rem, 4vw, 4rem);
-  z-index: 6;
+  z-index: 7;
   width: min(20rem, calc(100% - 2.4rem));
   padding: 1rem;
   border: 1px solid rgba(233, 216, 186, 0.55);
@@ -455,16 +767,7 @@ a {
   transform: translateY(0);
 }
 
-.panel-kicker {
-  margin-bottom: 0.4rem;
-  color: var(--gold);
-  font-size: 0.68rem;
-  letter-spacing: 0.14rem;
-  text-transform: uppercase;
-  font-weight: 700;
-}
-
-.reading-panel h2 {
+.reading-panel h3 {
   margin-bottom: 0.35rem;
   color: #eadcc5;
   font-size: 1.45rem;
@@ -476,282 +779,484 @@ a {
   line-height: 1.45;
 }
 
-.hero-content {
-  width: min(58rem, calc(100% - 3rem));
+.cards-section,
+.healing-section,
+.journey-section,
+.final-cta {
   position: relative;
-  z-index: 4;
-  text-align: center;
-  color: var(--bone);
-  padding: 7rem 0;
-}
-
-.eyebrow {
-  margin: 0 0 0.9rem;
-  color: var(--gold);
-  text-transform: uppercase;
-  letter-spacing: 0.14rem;
-  font-size: 0.78rem;
-  font-weight: 700;
-}
-
-h1,
-h2,
-h3,
-p {
-  margin-top: 0;
-}
-
-h1 {
-  margin-bottom: 1rem;
-  color: #e9d8ba;
-  font-size: clamp(3.1rem, 10vw, 8.8rem);
-  line-height: 0.86;
-  text-transform: uppercase;
-  text-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.48);
-}
-
-.hero-copy {
-  width: min(42rem, 100%);
-  margin: 0 auto 1.8rem;
-  font-size: clamp(1.05rem, 2vw, 1.35rem);
-  line-height: 1.55;
-  color: rgba(247, 241, 232, 0.88);
-}
-
-.hero-actions {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-}
-
-.button {
-  min-height: 2.85rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem 1.15rem;
-  border: 1px solid rgba(230, 211, 176, 0.72);
-  text-transform: uppercase;
-  letter-spacing: 0.08rem;
-  font-size: 0.78rem;
-  transition: transform 180ms ease, background 180ms ease, color 180ms ease;
-}
-
-.button:hover {
-  transform: translateY(-2px);
-}
-
-.button.primary {
-  background: #e9d8ba;
-  color: #33231f;
-}
-
-.button.secondary {
-  color: #e9d8ba;
-}
-
-.intro-band {
-  min-height: 13rem;
-  display: grid;
-  place-items: center;
-  padding: 3rem 1rem;
-  background:
-    linear-gradient(rgba(247, 241, 232, 0.74), rgba(247, 241, 232, 0.82)),
-    repeating-linear-gradient(110deg, transparent 0 2.5rem, rgba(135, 91, 97, 0.07) 2.55rem 2.6rem);
-  border-bottom: 1px solid rgba(135, 91, 97, 0.38);
-}
-
-.intro-band p {
-  max-width: 46rem;
-  text-align: center;
-  color: var(--olive);
-  text-transform: uppercase;
-  font-weight: 800;
-  font-size: clamp(2rem, 5vw, 4.2rem);
-  line-height: 1.1;
-}
-
-.offerings,
-.teachings,
-.footer {
-  padding: clamp(3.5rem, 8vw, 7rem) clamp(1rem, 5vw, 5rem);
+  z-index: 5;
+  padding: clamp(5rem, 10vw, 9rem) clamp(1rem, 5vw, 4rem);
 }
 
 .section-heading {
-  max-width: 48rem;
-  margin: 0 auto 2rem;
+  max-width: 58rem;
+  margin: 0 auto clamp(3rem, 6vw, 5rem);
   text-align: center;
 }
 
-h2 {
+.section-heading h2 {
+  margin-bottom: 1rem;
+}
+
+.oracle-cards {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: clamp(1rem, 3vw, 2rem);
+  perspective: 2000px;
+}
+
+.oracle-card {
+  position: relative;
+  width: min(18.75rem, 28vw);
+  height: 31.25rem;
+  transform-style: preserve-3d;
+  transition: transform 700ms ease;
+}
+
+.oracle-card:first-child {
+  transform: rotate(-10deg);
+}
+
+.oracle-card:last-child {
+  transform: rotate(10deg);
+}
+
+.oracle-card:hover {
+  transform: translateY(-1.8rem) scale(1.04) rotateY(180deg);
+}
+
+.oracle-card.featured:hover {
+  transform: translateY(-1.8rem) scale(1.05) rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2.1rem;
+  text-align: center;
+  border-radius: 2rem;
+  overflow: hidden;
+  backface-visibility: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 2rem 4rem rgba(126, 97, 112, 0.18);
+}
+
+.card-front {
+  background: linear-gradient(135deg, #f7d6e6, #e9ddf8, #cbece7);
+}
+
+.card-front::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(255, 255, 255, 0.7), transparent 60%);
+}
+
+.card-front h3,
+.card-front p,
+.card-art {
+  position: relative;
+  z-index: 2;
+}
+
+.card-front h3 {
   color: var(--ink);
-  font-size: clamp(2rem, 4vw, 3.7rem);
-  line-height: 1;
+  font-size: 2.25rem;
+  font-style: italic;
+  font-weight: 400;
 }
 
-.offering-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-  max-width: 70rem;
-  margin: 0 auto;
-}
-
-.offering-grid article {
-  min-height: 18rem;
-  padding: 1.4rem;
-  border: 1px solid rgba(135, 91, 97, 0.42);
+.card-art {
+  width: 11rem;
+  height: 13rem;
+  border-radius: 1.7rem;
   background:
-    linear-gradient(180deg, rgba(247, 241, 232, 0.82), rgba(226, 214, 200, 0.58)),
-    var(--paper);
-  box-shadow: 0 1rem 2.2rem rgba(71, 42, 35, 0.08);
+    radial-gradient(circle at 42% 40%, rgba(255, 255, 255, 0.85), transparent 20%),
+    linear-gradient(135deg, rgba(30, 21, 36, 0.55), transparent),
+    linear-gradient(180deg, #b98ca6, #a8c7e8);
+  box-shadow: 0 1.5rem 3rem rgba(30, 21, 36, 0.28);
+  filter: grayscale(0.2) contrast(1.15);
+  opacity: 0.84;
 }
 
-.card-symbol {
-  display: inline-grid;
-  place-items: center;
-  width: 2.6rem;
-  height: 2.6rem;
-  margin-bottom: 4rem;
-  border: 1px solid var(--wine);
-  color: var(--wine);
+.art-gold {
+  background:
+    radial-gradient(circle at 50% 36%, rgba(255, 255, 255, 0.8), transparent 20%),
+    linear-gradient(135deg, rgba(30, 21, 36, 0.45), transparent),
+    linear-gradient(180deg, #d6b36a, #cbb9e8);
 }
 
-h3 {
-  color: var(--olive);
-  font-size: 1.55rem;
+.art-blue {
+  background:
+    radial-gradient(circle at 58% 42%, rgba(255, 255, 255, 0.82), transparent 20%),
+    linear-gradient(135deg, rgba(30, 21, 36, 0.5), transparent),
+    linear-gradient(180deg, #a8c7e8, #b98ca6);
 }
 
-.offering-grid p,
-.footer p {
-  line-height: 1.6;
-  font-size: 1.02rem;
+.card-front p {
+  margin: 0;
+  color: rgba(30, 21, 36, 0.72);
+  font-size: 0.76rem;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
 }
 
-.teachings {
-  background: #4f332f;
-  color: var(--bone);
-}
-
-.teachings h2 {
-  color: #eadcc5;
-}
-
-.lesson-list {
-  max-width: 62rem;
-  margin: 0 auto;
-  border-top: 1px solid rgba(230, 211, 176, 0.38);
-}
-
-.lesson-list a {
-  display: grid;
-  grid-template-columns: 7rem 1fr;
+.card-back {
+  justify-content: center;
   gap: 1rem;
-  padding: 1.1rem 0;
-  border-bottom: 1px solid rgba(230, 211, 176, 0.38);
+  color: white;
+  background:
+    radial-gradient(circle at center, rgba(247, 214, 230, 0.2), transparent 70%),
+    #1d1430;
+  transform: rotateY(180deg);
 }
 
-.lesson-list time {
+.card-back span {
+  display: grid;
+  place-items: center;
+  width: 5.5rem;
+  height: 5.5rem;
+  margin-bottom: 1rem;
+  border-radius: 50%;
+  border: 1px solid rgba(214, 179, 106, 0.4);
   color: var(--gold);
+  font-size: 2rem;
+  box-shadow: 0 0 2.5rem rgba(214, 179, 106, 0.35);
 }
 
-.lesson-list span {
-  font-size: clamp(1.2rem, 2vw, 1.8rem);
+.card-back h3 {
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.card-back p {
+  color: rgba(247, 234, 243, 0.82);
+  line-height: 1.65;
+}
+
+.healing-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.3rem;
+  width: min(78rem, 100%);
+  margin: 0 auto;
+}
+
+.healing-grid article {
+  position: relative;
+  overflow: hidden;
+  min-height: 17rem;
+  padding: 1.6rem;
+  border-radius: 1.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.34);
+  backdrop-filter: blur(22px);
+  box-shadow: 0 1.4rem 3rem rgba(126, 97, 112, 0.12);
+  transition: transform 250ms ease;
+}
+
+.healing-grid article:hover {
+  transform: translateY(-0.7rem);
+}
+
+.healing-grid span {
+  display: grid;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  margin-bottom: 2rem;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, rgba(214, 179, 106, 0.35), rgba(203, 185, 232, 0.35));
+  color: var(--gold);
+  font-size: 1.4rem;
+}
+
+.healing-grid h3,
+.timeline h3 {
+  color: #7e6170;
+  font-size: 1.45rem;
+  font-weight: 400;
+}
+
+.healing-grid p {
+  line-height: 1.65;
+}
+
+.timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  width: min(70rem, 100%);
+  margin: 0 auto;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 2.45rem;
+  left: 3rem;
+  right: 3rem;
+  height: 2px;
+  background: linear-gradient(90deg, #f7d6e6, #d6b36a, #cbb9e8);
+}
+
+.timeline article {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.timeline span {
+  display: grid;
+  place-items: center;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(18px);
+  color: var(--rose);
+  box-shadow: 0 1rem 2.5rem rgba(126, 97, 112, 0.14);
+}
+
+.cta-panel {
+  position: relative;
+  width: min(62rem, 100%);
+  margin: 0 auto;
+  overflow: hidden;
+  padding: clamp(3rem, 7vw, 5rem);
+  text-align: center;
+  border-radius: 2.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background:
+    linear-gradient(135deg, rgba(247, 214, 230, 0.3), transparent, rgba(203, 185, 232, 0.3)),
+    rgba(255, 255, 255, 0.34);
+  backdrop-filter: blur(24px);
+  box-shadow: 0 2rem 5rem rgba(126, 97, 112, 0.16);
+}
+
+.cta-orb {
+  display: grid;
+  place-items: center;
+  width: 7rem;
+  height: 7rem;
+  margin: 0 auto 2rem;
+  border-radius: 50%;
+  border: 1px solid rgba(214, 179, 106, 0.45);
+  background: rgba(255, 255, 255, 0.36);
+  box-shadow: 0 0 5rem rgba(214, 179, 106, 0.25);
+}
+
+.cta-orb::before {
+  content: "";
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 2rem rgba(214, 179, 106, 0.8);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+.cta-panel h2 {
+  margin-bottom: 1.2rem;
+}
+
+.cta-panel p {
+  max-width: 42rem;
+  margin: 0 auto 2rem;
+  color: #866c78;
+  font-size: 1.08rem;
+  line-height: 1.75;
 }
 
 .footer {
-  display: grid;
-  grid-template-columns: 1fr minmax(18rem, 28rem);
-  gap: 2rem;
-  align-items: center;
-  background: var(--paper);
+  position: relative;
+  z-index: 5;
+  padding: 3rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(16px);
+  text-align: center;
+  color: #8a6d7c;
 }
 
-.footer p {
-  color: var(--olive);
-  font-size: clamp(1.8rem, 4vw, 3.3rem);
-  line-height: 1.05;
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
 }
 
-.footer label {
-  display: block;
-  margin-bottom: 0.55rem;
-  color: var(--wine);
+@keyframes shoot {
+  0% {
+    transform: translate(0, 0) rotate(35deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(500px, 500px) rotate(35deg);
+    opacity: 0;
+  }
 }
 
-.footer div {
-  display: flex;
-  gap: 0.5rem;
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-input,
-.footer button {
-  font: inherit;
-  border-radius: 0;
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.8rem);
+  }
 }
 
-input {
-  min-width: 0;
-  flex: 1;
-  border: 1px solid rgba(135, 91, 97, 0.5);
-  background: var(--bone);
-  padding: 0.75rem 0.8rem;
-  color: var(--ink);
+@keyframes driftGlow {
+  0% {
+    background-position: 20% 30%;
+  }
+  100% {
+    background-position: 80% 60%;
+  }
 }
 
-.footer button {
-  border: 1px solid var(--wine);
-  background: var(--wine);
-  color: var(--bone);
-  padding: 0.75rem 1rem;
-  cursor: pointer;
-}
-
-@media (max-width: 820px) {
-  .topbar {
-    grid-template-columns: 1fr;
-    justify-items: center;
+@media (max-width: 980px) {
+  body {
+    cursor: auto;
   }
 
-  .utility-nav {
-    justify-self: center;
-    padding-bottom: 0.7rem;
+  .cursor-aura {
+    display: none;
   }
 
-  .main-nav {
-    overflow-x: auto;
-    justify-content: flex-start;
+  .navbar {
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    display: none;
   }
 
   .hero {
-    min-height: 42rem;
+    position: relative;
   }
 
-  .hero::before {
-    inset: 1rem;
+  .hero-grid {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .portal-wrap {
+    min-height: 32rem;
+  }
+
+  .oracle-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .oracle-card,
+  .oracle-card:first-child,
+  .oracle-card:last-child {
+    width: min(21rem, 88vw);
+    transform: none;
+  }
+
+  .healing-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .timeline {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline::before {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar {
+    flex-direction: column;
+  }
+
+  .brand strong {
+    font-size: 0.95rem;
+  }
+
+  .brand small {
+    font-size: 0.62rem;
+  }
+
+  .logo-mark {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .hero {
+    padding-top: 1rem;
+  }
+
+  h1 {
+    font-size: clamp(3.8rem, 18vw, 5.2rem);
+  }
+
+  h2 {
+    font-size: clamp(2.8rem, 14vw, 4.4rem);
+  }
+
+  .cabinet {
+    min-height: 44rem;
+  }
+
+  .cabinet-copy {
+    padding-top: 2rem;
+    align-self: start;
   }
 
   .anatomy-skull {
-    width: 13rem;
-    left: -1.5rem;
+    width: 10rem;
+    left: -1rem;
   }
 
   .oracle-hand {
-    width: 13rem;
-    height: 18rem;
+    width: 12rem;
+    height: 16rem;
     right: -1rem;
-    bottom: 7%;
+    bottom: 12%;
   }
 
   .body-map {
-    width: 11rem;
-    left: 32%;
+    width: 10rem;
+    left: 34%;
+    top: 44%;
   }
 
   .tarot-card {
     width: 4.8rem;
     right: 10%;
+    top: 40%;
   }
 
   .reading-panel {
@@ -761,72 +1266,102 @@ input {
     width: auto;
   }
 
-  .offering-grid,
-  .footer {
+  .healing-grid {
     grid-template-columns: 1fr;
-  }
-
-  .lesson-list a {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 520px) {
-  .brand-mark {
-    width: 4.4rem;
-    height: 4.4rem;
-    font-size: 2.4rem;
-  }
-
-  .hero-content {
-    padding: 5rem 0;
-  }
-
-  .corner {
-    width: 2.6rem;
-    height: 2.6rem;
-  }
-
-  .footer div {
-    flex-direction: column;
   }
 }
 
 </style>
   </head>
   <body>
-    <main class="site-shell">
-      <header class="topbar" aria-label="Primary navigation">
-        <a class="icon-link" href="#" aria-label="Instagram">
-          <span></span>
-        </a>
-        <a class="brand" href="#" aria-label="Oracle of the Body home">
-          <span class="brand-mark">O</span>
-          <span class="brand-title">Oracle of the Body</span>
-          <span class="brand-subtitle">Yadira Santiago</span>
-        </a>
-        <nav class="utility-nav" aria-label="Account navigation">
-          <a href="#">Login</a>
-          <a href="#">Cart</a>
-          <a href="#">Book</a>
-        </nav>
-      </header>
+    <div class="cursor-aura" aria-hidden="true"></div>
+    <div class="site-bg" aria-hidden="true">
+      <span class="aurora aurora-rose"></span>
+      <span class="aurora aurora-lilac"></span>
+      <span class="aurora aurora-blue"></span>
+      <span class="star star-1"></span>
+      <span class="star star-2"></span>
+      <span class="star star-3"></span>
+      <span class="star star-4"></span>
+      <span class="star star-5"></span>
+      <span class="star star-6"></span>
+      <span class="star star-7"></span>
+      <span class="star star-8"></span>
+    </div>
 
-      <nav class="main-nav" aria-label="Site navigation">
-        <a href="#">Home</a>
-        <a href="#teachings">Blog</a>
-        <a href="#offerings">Shop</a>
-        <a href="#teachings">Videos</a>
-        <a href="#contact">Contact</a>
+    <header class="navbar">
+      <a class="brand" href="#" aria-label="Oracle of the Body home">
+        <span class="logo-mark" aria-hidden="true">
+          <span class="logo-face"></span>
+          <span class="logo-orbit"></span>
+        </span>
+        <span>
+          <strong>Oracle of the Body</strong>
+          <small>Seeking Divine Clarity</small>
+        </span>
+      </a>
+
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#journey">Journey</a>
+        <a href="#healing">Healing</a>
+        <a href="#oracle">Oracle</a>
       </nav>
 
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="corner corner-tl"></div>
-        <div class="corner corner-tr"></div>
-        <div class="corner corner-bl"></div>
-        <div class="corner corner-br"></div>
+      <a class="pill-button soft" href="#oracle">Begin Your Journey</a>
+    </header>
 
-        <div class="hero-bg" aria-hidden="true">
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="status-pill"><span></span> Spiritual Healing Sanctuary</p>
+            <h1 id="hero-title">Seeking<br />Divine<br />Clarity</h1>
+            <p>
+              Oracle of the Body bridges intuition, healing, and energetic awareness through immersive spiritual guidance, body wisdom, and divine alignment.
+            </p>
+            <div class="hero-actions">
+              <a class="pill-button gold" href="#healing">Explore Healing</a>
+              <a class="pill-button glass" href="#cabinet">Discover Your Energy</a>
+            </div>
+          </div>
+
+          <div class="portal-wrap" aria-label="Interactive healing portal">
+            <div class="orbit orbit-one"></div>
+            <div class="orbit orbit-two"></div>
+            <div class="orbit-symbol symbol-1">âœ¦</div>
+            <div class="orbit-symbol symbol-2">âœ§</div>
+            <div class="orbit-symbol symbol-3">âœ¶</div>
+            <div class="portal">
+              <span class="portal-glow"></span>
+              <span class="third-eye"></span>
+              <span class="split-body split-left"></span>
+              <span class="split-body split-right"></span>
+              <span class="particle p1"></span>
+              <span class="particle p2"></span>
+              <span class="particle p3"></span>
+              <span class="particle p4"></span>
+              <span class="particle p5"></span>
+              <span class="particle p6"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cabinet-section" id="cabinet" aria-labelledby="cabinet-title">
+        <div class="cabinet">
+          <div class="corner corner-tl"></div>
+          <div class="corner corner-tr"></div>
+          <div class="corner corner-bl"></div>
+          <div class="corner corner-br"></div>
+
+          <div class="cabinet-copy">
+            <p class="section-kicker">Interactive Body Oracle</p>
+            <h2 id="cabinet-title">Read the body as a living oracle.</h2>
+            <p>
+              Hover or tap an object inside the cabinet. Each symbol reveals a small reflection, blending the mystical stage feeling with Oracle of the Body's softer healing palette.
+            </p>
+          </div>
+
           <button class="artifact anatomy-skull" type="button" data-title="Mind" data-copy="Notice the story the body keeps repeating. Begin there."></button>
           <button class="artifact oracle-hand" type="button" data-title="Hands" data-copy="The hands reveal what you reach for, hold, resist, and bless.">
             <span class="palm-line line-one"></span>
@@ -841,94 +1376,167 @@ input {
           </button>
           <button class="artifact tarot-card" type="button" data-title="Oracle" data-copy="A card is a mirror. The body is the reader."></button>
           <button class="artifact body-map" type="button" data-title="Body Map" data-copy="Follow sensation like a constellation: pressure, heat, pulse, image, meaning."></button>
-        </div>
 
-        <div class="hero-content">
-          <p class="eyebrow">Embodied counsel for nervous system healing</p>
-          <h1 id="hero-title">Oracle of the Body</h1>
-          <p class="hero-copy">
-            A ritual-minded home for body wisdom, polarity, self-mastery, and the quiet anatomy of becoming.
-          </p>
-          <div class="hero-actions">
-            <a class="button primary" href="#offerings">Explore Offerings</a>
-            <a class="button secondary" href="#teachings">Watch Teachings</a>
-          </div>
+          <aside class="reading-panel" aria-live="polite" aria-hidden="true">
+            <p class="panel-kicker">Selected Sign</p>
+            <h3>Choose an object</h3>
+            <p>Hover or tap the cabinet symbols to receive a small body oracle.</p>
+          </aside>
         </div>
-
-        <aside class="reading-panel" aria-live="polite" aria-hidden="true">
-          <p class="panel-kicker">Selected Sign</p>
-          <h2>Choose an object</h2>
-          <p>Hover or tap the cabinet symbols to receive a small body oracle.</p>
-        </aside>
       </section>
 
-      <section class="intro-band">
-        <p>
-          What began as a dream slowly revealed itself as a calling.
-        </p>
-      </section>
-
-      <section class="offerings" id="offerings" aria-labelledby="offerings-title">
+      <section class="cards-section" aria-labelledby="energy-title">
         <div class="section-heading">
-          <p class="eyebrow">Essence of Healing</p>
-          <h2 id="offerings-title">Read the body as a living oracle.</h2>
+          <p class="section-kicker">Interactive Consciousness</p>
+          <h2 id="energy-title">Energy responds to presence.</h2>
         </div>
-        <div class="offering-grid">
-          <article>
-            <span class="card-symbol">I</span>
-            <h3>Body Mapping</h3>
-            <p>Somatic observation, anatomy symbolism, and grounded practices for inner clarity.</p>
+
+        <div class="oracle-cards">
+          <article class="oracle-card">
+            <div class="card-face card-front">
+              <h3>Cosmic Insights</h3>
+              <span class="card-art art-rose"></span>
+              <p>An Oracle For You</p>
+            </div>
+            <div class="card-face card-back">
+              <span>âœ¦</span>
+              <h3>Cosmic Insights</h3>
+              <p>A sacred transmission revealing the hidden wisdom your soul already understands.</p>
+            </div>
           </article>
-          <article>
-            <span class="card-symbol">II</span>
-            <h3>Energy Teaching</h3>
-            <p>Deep-dive lessons on masculine presence, feminine magnetism, and nervous system regulation.</p>
+
+          <article class="oracle-card featured">
+            <div class="card-face card-front">
+              <h3>Sacred Union</h3>
+              <span class="card-art art-gold"></span>
+              <p>An Oracle For You</p>
+            </div>
+            <div class="card-face card-back">
+              <span>âœ¦</span>
+              <h3>Sacred Union</h3>
+              <p>Harmony begins when the body feels safe enough to tell the truth.</p>
+            </div>
           </article>
-          <article>
-            <span class="card-symbol">III</span>
-            <h3>Private Guidance</h3>
-            <p>Book a session for intuitive, practical support that meets the body where it is.</p>
+
+          <article class="oracle-card">
+            <div class="card-face card-front">
+              <h3>Divine Reminders</h3>
+              <span class="card-art art-blue"></span>
+              <p>An Oracle For You</p>
+            </div>
+            <div class="card-face card-back">
+              <span>âœ¦</span>
+              <h3>Divine Reminders</h3>
+              <p>The signal you seek is already moving through sensation, breath, and attention.</p>
+            </div>
           </article>
         </div>
       </section>
 
-      <section class="teachings" id="teachings" aria-labelledby="teachings-title">
+      <section class="healing-section" id="healing" aria-labelledby="healing-title">
         <div class="section-heading">
-          <p class="eyebrow">Latest Teachings</p>
-          <h2 id="teachings-title">From the video archive</h2>
+          <p class="section-kicker">Healing Experiences</p>
+          <h2 id="healing-title">The body speaks.</h2>
+          <p>Every ache, sensation, emotion, and intuition carries a message waiting to be understood.</p>
         </div>
-        <div class="lesson-list">
-          <a href="#">
-            <time>6/16/25</time>
-            <span>The Hidden Doorway to Masculine Energy Mastery</span>
-          </a>
-          <a href="#">
-            <time>6/13/25</time>
-            <span>Feminine Magnetism: How to Stop Chasing Love</span>
-          </a>
-          <a href="#">
-            <time>6/11/25</time>
-            <span>The Hidden Power of Your Hands</span>
-          </a>
+
+        <div class="healing-grid">
+          <article>
+            <span>âœ¦</span>
+            <h3>Oracle Readings</h3>
+            <p>Gentle spiritual guidance designed to reconnect mind, body, and soul.</p>
+          </article>
+          <article>
+            <span>âœ¦</span>
+            <h3>Energy Alignment</h3>
+            <p>Support for grounding your field, regulating the body, and listening inward.</p>
+          </article>
+          <article>
+            <span>âœ¦</span>
+            <h3>Chakra Healing</h3>
+            <p>Intuitive reflection for the centers of expression, safety, intuition, and love.</p>
+          </article>
+          <article>
+            <span>âœ¦</span>
+            <h3>Divine Balance</h3>
+            <p>Practices for softening resistance and restoring inner balance.</p>
+          </article>
         </div>
       </section>
 
-      <footer class="footer" id="contact">
-        <p>Follow the body. Listen for the oracle.</p>
-        <form>
-          <label for="email">Email Address</label>
-          <div>
-            <input id="email" type="email" placeholder="you@example.com" />
-            <button type="submit">Sign Up</button>
-          </div>
-        </form>
-      </footer>
+      <section class="journey-section" id="journey" aria-labelledby="journey-title">
+        <div class="section-heading">
+          <p class="section-kicker">Spiritual Path</p>
+          <h2 id="journey-title">Your Oracle Journey</h2>
+        </div>
+        <div class="timeline">
+          <article><span>1</span><h3>Awareness</h3></article>
+          <article><span>2</span><h3>Alignment</h3></article>
+          <article><span>3</span><h3>Release</h3></article>
+          <article><span>4</span><h3>Healing</h3></article>
+          <article><span>5</span><h3>Awakening</h3></article>
+        </div>
+      </section>
+
+      <section class="final-cta" id="oracle">
+        <div class="cta-panel">
+          <span class="cta-orb"></span>
+          <h2>Step Into<br />Your Healing</h2>
+          <p>Enter a sanctuary where intuition, energy, and consciousness merge into transformative spiritual guidance.</p>
+          <a class="pill-button gold" href="#">Begin the Experience</a>
+        </div>
+      </section>
     </main>
+
+    <footer class="footer">
+      <p>Â© 2026 Oracle of the Body â€¢ Healing â€¢ Consciousness â€¢ Intuition</p>
+    </footer>
+
     <script>
+const root = document.documentElement;
+const aura = document.querySelector(".cursor-aura");
 const hero = document.querySelector(".hero");
+const cabinet = document.querySelector(".cabinet");
 const artifacts = [...document.querySelectorAll(".artifact")];
 const panel = document.querySelector(".reading-panel");
-const form = document.querySelector("form");
+
+function setPointerPosition(event) {
+  const x = event.clientX;
+  const y = event.clientY;
+
+  aura?.style.setProperty("transform", `translate3d(${x - 64}px, ${y - 64}px, 0)`);
+
+  if (hero) {
+    const heroBounds = hero.getBoundingClientRect();
+    const heroX = ((x - heroBounds.left) / heroBounds.width) * 100;
+    const heroY = ((y - heroBounds.top) / heroBounds.height) * 100;
+    hero.style.setProperty("--cursor-x", `${heroX}%`);
+    hero.style.setProperty("--cursor-y", `${heroY}%`);
+  }
+
+  if (cabinet) {
+    const cabinetBounds = cabinet.getBoundingClientRect();
+    const cabinetX = ((x - cabinetBounds.left) / cabinetBounds.width) * 100;
+    const cabinetY = ((y - cabinetBounds.top) / cabinetBounds.height) * 100;
+    cabinet.style.setProperty("--cabinet-x", `${cabinetX}%`);
+    cabinet.style.setProperty("--cabinet-y", `${cabinetY}%`);
+
+    artifacts.forEach((artifact, index) => {
+      const depth = (index + 1) * 0.75;
+      artifact.style.setProperty("--tx", `${(cabinetX - 50) / depth}px`);
+      artifact.style.setProperty("--ty", `${(cabinetY - 50) / (depth * 1.5)}px`);
+    });
+  }
+}
+
+function setScrollMotion() {
+  const scrollY = window.scrollY;
+  const progress = Math.min(scrollY / Math.max(window.innerHeight * 0.85, 1), 1);
+
+  root.style.setProperty("--scroll-y", scrollY.toFixed(2));
+  root.style.setProperty("--portal-scale", (1 + progress * 0.18).toFixed(3));
+  root.style.setProperty("--hero-opacity", Math.max(1 - progress * 1.4, 0).toFixed(3));
+}
 
 artifacts.forEach((artifact) => {
   const label = document.createElement("span");
@@ -944,25 +1552,10 @@ function selectArtifact(artifact) {
 
   panel.classList.add("is-visible");
   panel.setAttribute("aria-hidden", "false");
-  panel.querySelector("h2").textContent = artifact.dataset.title || "Selected Sign";
+  panel.querySelector("h3").textContent = artifact.dataset.title || "Selected Sign";
   panel.querySelector("p:last-child").textContent =
     artifact.dataset.copy || "The body has already begun to answer.";
 }
-
-hero?.addEventListener("mousemove", (event) => {
-  const bounds = hero.getBoundingClientRect();
-  const x = ((event.clientX - bounds.left) / bounds.width) * 100;
-  const y = ((event.clientY - bounds.top) / bounds.height) * 100;
-
-  hero.style.setProperty("--cursor-x", `${x}%`);
-  hero.style.setProperty("--cursor-y", `${y}%`);
-
-  artifacts.forEach((artifact, index) => {
-    const depth = (index + 1) * 0.7;
-    artifact.style.setProperty("--tx", `${(x - 50) / depth}px`);
-    artifact.style.setProperty("--ty", `${(y - 50) / (depth * 1.4)}px`);
-  });
-});
 
 artifacts.forEach((artifact) => {
   artifact.addEventListener("mouseenter", () => selectArtifact(artifact));
@@ -970,18 +1563,9 @@ artifacts.forEach((artifact) => {
   artifact.addEventListener("click", () => selectArtifact(artifact));
 });
 
-form?.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const button = form.querySelector("button");
-  const input = form.querySelector("input");
-
-  if (!button || !input) return;
-
-  button.textContent = input.value ? "Thank You" : "Enter Email";
-  setTimeout(() => {
-    button.textContent = "Sign Up";
-  }, 1800);
-});
+window.addEventListener("mousemove", setPointerPosition);
+window.addEventListener("scroll", setScrollMotion, { passive: true });
+setScrollMotion();
 
 </script>
   </body>

@@ -7,38 +7,94 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="site-shell">
-      <header class="topbar" aria-label="Primary navigation">
-        <a class="icon-link" href="#" aria-label="Instagram">
-          <span></span>
-        </a>
-        <a class="brand" href="#" aria-label="Oracle of the Body home">
-          <span class="brand-mark">O</span>
-          <span class="brand-title">Oracle of the Body</span>
-          <span class="brand-subtitle">Yadira Santiago</span>
-        </a>
-        <nav class="utility-nav" aria-label="Account navigation">
-          <a href="#">Login</a>
-          <a href="#">Cart</a>
-          <a href="#">Book</a>
-        </nav>
-      </header>
+    <div class="cursor-aura" aria-hidden="true"></div>
+    <div class="site-bg" aria-hidden="true">
+      <span class="aurora aurora-rose"></span>
+      <span class="aurora aurora-lilac"></span>
+      <span class="aurora aurora-blue"></span>
+      <span class="star star-1"></span>
+      <span class="star star-2"></span>
+      <span class="star star-3"></span>
+      <span class="star star-4"></span>
+      <span class="star star-5"></span>
+      <span class="star star-6"></span>
+      <span class="star star-7"></span>
+      <span class="star star-8"></span>
+    </div>
 
-      <nav class="main-nav" aria-label="Site navigation">
-        <a href="#">Home</a>
-        <a href="#teachings">Blog</a>
-        <a href="#offerings">Shop</a>
-        <a href="#teachings">Videos</a>
-        <a href="#contact">Contact</a>
+    <header class="navbar">
+      <a class="brand" href="#" aria-label="Oracle of the Body home">
+        <span class="logo-mark" aria-hidden="true">
+          <span class="logo-face"></span>
+          <span class="logo-orbit"></span>
+        </span>
+        <span>
+          <strong>Oracle of the Body</strong>
+          <small>Seeking Divine Clarity</small>
+        </span>
+      </a>
+
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#journey">Journey</a>
+        <a href="#healing">Healing</a>
+        <a href="#oracle">Oracle</a>
       </nav>
 
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="corner corner-tl"></div>
-        <div class="corner corner-tr"></div>
-        <div class="corner corner-bl"></div>
-        <div class="corner corner-br"></div>
+      <a class="pill-button soft" href="#oracle">Begin Your Journey</a>
+    </header>
 
-        <div class="hero-bg" aria-hidden="true">
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="status-pill"><span></span> Spiritual Healing Sanctuary</p>
+            <h1 id="hero-title">Seeking<br />Divine<br />Clarity</h1>
+            <p>
+              Oracle of the Body bridges intuition, healing, and energetic awareness through immersive spiritual guidance, body wisdom, and divine alignment.
+            </p>
+            <div class="hero-actions">
+              <a class="pill-button gold" href="#healing">Explore Healing</a>
+              <a class="pill-button glass" href="#cabinet">Discover Your Energy</a>
+            </div>
+          </div>
+
+          <div class="portal-wrap" aria-label="Interactive healing portal">
+            <div class="orbit orbit-one"></div>
+            <div class="orbit orbit-two"></div>
+            <div class="orbit-symbol symbol-1">✦</div>
+            <div class="orbit-symbol symbol-2">✧</div>
+            <div class="orbit-symbol symbol-3">✶</div>
+            <div class="portal">
+              <span class="portal-glow"></span>
+              <span class="third-eye"></span>
+              <span class="split-body split-left"></span>
+              <span class="split-body split-right"></span>
+              <span class="particle p1"></span>
+              <span class="particle p2"></span>
+              <span class="particle p3"></span>
+              <span class="particle p4"></span>
+              <span class="particle p5"></span>
+              <span class="particle p6"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cabinet-section" id="cabinet" aria-labelledby="cabinet-title">
+        <div class="cabinet">
+          <div class="corner corner-tl"></div>
+          <div class="corner corner-tr"></div>
+          <div class="corner corner-bl"></div>
+          <div class="corner corner-br"></div>
+
+          <div class="cabinet-copy">
+            <p class="section-kicker">Interactive Body Oracle</p>
+            <h2 id="cabinet-title">Read the body as a living oracle.</h2>
+            <p>
+              Hover or tap an object inside the cabinet. Each symbol reveals a small reflection, blending the mystical stage feeling with Oracle of the Body's softer healing palette.
+            </p>
+          </div>
+
           <button class="artifact anatomy-skull" type="button" data-title="Mind" data-copy="Notice the story the body keeps repeating. Begin there."></button>
           <button class="artifact oracle-hand" type="button" data-title="Hands" data-copy="The hands reveal what you reach for, hold, resist, and bless.">
             <span class="palm-line line-one"></span>
@@ -53,89 +109,122 @@
           </button>
           <button class="artifact tarot-card" type="button" data-title="Oracle" data-copy="A card is a mirror. The body is the reader."></button>
           <button class="artifact body-map" type="button" data-title="Body Map" data-copy="Follow sensation like a constellation: pressure, heat, pulse, image, meaning."></button>
-        </div>
 
-        <div class="hero-content">
-          <p class="eyebrow">Embodied counsel for nervous system healing</p>
-          <h1 id="hero-title">Oracle of the Body</h1>
-          <p class="hero-copy">
-            A ritual-minded home for body wisdom, polarity, self-mastery, and the quiet anatomy of becoming.
-          </p>
-          <div class="hero-actions">
-            <a class="button primary" href="#offerings">Explore Offerings</a>
-            <a class="button secondary" href="#teachings">Watch Teachings</a>
-          </div>
+          <aside class="reading-panel" aria-live="polite" aria-hidden="true">
+            <p class="panel-kicker">Selected Sign</p>
+            <h3>Choose an object</h3>
+            <p>Hover or tap the cabinet symbols to receive a small body oracle.</p>
+          </aside>
         </div>
-
-        <aside class="reading-panel" aria-live="polite" aria-hidden="true">
-          <p class="panel-kicker">Selected Sign</p>
-          <h2>Choose an object</h2>
-          <p>Hover or tap the cabinet symbols to receive a small body oracle.</p>
-        </aside>
       </section>
 
-      <section class="intro-band">
-        <p>
-          What began as a dream slowly revealed itself as a calling.
-        </p>
-      </section>
-
-      <section class="offerings" id="offerings" aria-labelledby="offerings-title">
+      <section class="cards-section" aria-labelledby="energy-title">
         <div class="section-heading">
-          <p class="eyebrow">Essence of Healing</p>
-          <h2 id="offerings-title">Read the body as a living oracle.</h2>
+          <p class="section-kicker">Interactive Consciousness</p>
+          <h2 id="energy-title">Energy responds to presence.</h2>
         </div>
-        <div class="offering-grid">
-          <article>
-            <span class="card-symbol">I</span>
-            <h3>Body Mapping</h3>
-            <p>Somatic observation, anatomy symbolism, and grounded practices for inner clarity.</p>
+
+        <div class="oracle-cards">
+          <article class="oracle-card">
+            <div class="card-face card-front">
+              <h3>Cosmic Insights</h3>
+              <span class="card-art art-rose"></span>
+              <p>An Oracle For You</p>
+            </div>
+            <div class="card-face card-back">
+              <span>✦</span>
+              <h3>Cosmic Insights</h3>
+              <p>A sacred transmission revealing the hidden wisdom your soul already understands.</p>
+            </div>
           </article>
-          <article>
-            <span class="card-symbol">II</span>
-            <h3>Energy Teaching</h3>
-            <p>Deep-dive lessons on masculine presence, feminine magnetism, and nervous system regulation.</p>
+
+          <article class="oracle-card featured">
+            <div class="card-face card-front">
+              <h3>Sacred Union</h3>
+              <span class="card-art art-gold"></span>
+              <p>An Oracle For You</p>
+            </div>
+            <div class="card-face card-back">
+              <span>✦</span>
+              <h3>Sacred Union</h3>
+              <p>Harmony begins when the body feels safe enough to tell the truth.</p>
+            </div>
           </article>
-          <article>
-            <span class="card-symbol">III</span>
-            <h3>Private Guidance</h3>
-            <p>Book a session for intuitive, practical support that meets the body where it is.</p>
+
+          <article class="oracle-card">
+            <div class="card-face card-front">
+              <h3>Divine Reminders</h3>
+              <span class="card-art art-blue"></span>
+              <p>An Oracle For You</p>
+            </div>
+            <div class="card-face card-back">
+              <span>✦</span>
+              <h3>Divine Reminders</h3>
+              <p>The signal you seek is already moving through sensation, breath, and attention.</p>
+            </div>
           </article>
         </div>
       </section>
 
-      <section class="teachings" id="teachings" aria-labelledby="teachings-title">
+      <section class="healing-section" id="healing" aria-labelledby="healing-title">
         <div class="section-heading">
-          <p class="eyebrow">Latest Teachings</p>
-          <h2 id="teachings-title">From the video archive</h2>
+          <p class="section-kicker">Healing Experiences</p>
+          <h2 id="healing-title">The body speaks.</h2>
+          <p>Every ache, sensation, emotion, and intuition carries a message waiting to be understood.</p>
         </div>
-        <div class="lesson-list">
-          <a href="#">
-            <time>6/16/25</time>
-            <span>The Hidden Doorway to Masculine Energy Mastery</span>
-          </a>
-          <a href="#">
-            <time>6/13/25</time>
-            <span>Feminine Magnetism: How to Stop Chasing Love</span>
-          </a>
-          <a href="#">
-            <time>6/11/25</time>
-            <span>The Hidden Power of Your Hands</span>
-          </a>
+
+        <div class="healing-grid">
+          <article>
+            <span>✦</span>
+            <h3>Oracle Readings</h3>
+            <p>Gentle spiritual guidance designed to reconnect mind, body, and soul.</p>
+          </article>
+          <article>
+            <span>✦</span>
+            <h3>Energy Alignment</h3>
+            <p>Support for grounding your field, regulating the body, and listening inward.</p>
+          </article>
+          <article>
+            <span>✦</span>
+            <h3>Chakra Healing</h3>
+            <p>Intuitive reflection for the centers of expression, safety, intuition, and love.</p>
+          </article>
+          <article>
+            <span>✦</span>
+            <h3>Divine Balance</h3>
+            <p>Practices for softening resistance and restoring inner balance.</p>
+          </article>
         </div>
       </section>
 
-      <footer class="footer" id="contact">
-        <p>Follow the body. Listen for the oracle.</p>
-        <form>
-          <label for="email">Email Address</label>
-          <div>
-            <input id="email" type="email" placeholder="you@example.com" />
-            <button type="submit">Sign Up</button>
-          </div>
-        </form>
-      </footer>
+      <section class="journey-section" id="journey" aria-labelledby="journey-title">
+        <div class="section-heading">
+          <p class="section-kicker">Spiritual Path</p>
+          <h2 id="journey-title">Your Oracle Journey</h2>
+        </div>
+        <div class="timeline">
+          <article><span>1</span><h3>Awareness</h3></article>
+          <article><span>2</span><h3>Alignment</h3></article>
+          <article><span>3</span><h3>Release</h3></article>
+          <article><span>4</span><h3>Healing</h3></article>
+          <article><span>5</span><h3>Awakening</h3></article>
+        </div>
+      </section>
+
+      <section class="final-cta" id="oracle">
+        <div class="cta-panel">
+          <span class="cta-orb"></span>
+          <h2>Step Into<br />Your Healing</h2>
+          <p>Enter a sanctuary where intuition, energy, and consciousness merge into transformative spiritual guidance.</p>
+          <a class="pill-button gold" href="#">Begin the Experience</a>
+        </div>
+      </section>
     </main>
+
+    <footer class="footer">
+      <p>© 2026 Oracle of the Body • Healing • Consciousness • Intuition</p>
+    </footer>
+
     <script src="script.js"></script>
   </body>
 </html>

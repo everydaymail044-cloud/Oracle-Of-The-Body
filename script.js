@@ -1,7 +1,47 @@
+const root = document.documentElement;
+const aura = document.querySelector(".cursor-aura");
 const hero = document.querySelector(".hero");
+const cabinet = document.querySelector(".cabinet");
 const artifacts = [...document.querySelectorAll(".artifact")];
 const panel = document.querySelector(".reading-panel");
-const form = document.querySelector("form");
+
+function setPointerPosition(event) {
+  const x = event.clientX;
+  const y = event.clientY;
+
+  aura?.style.setProperty("transform", `translate3d(${x - 64}px, ${y - 64}px, 0)`);
+
+  if (hero) {
+    const heroBounds = hero.getBoundingClientRect();
+    const heroX = ((x - heroBounds.left) / heroBounds.width) * 100;
+    const heroY = ((y - heroBounds.top) / heroBounds.height) * 100;
+    hero.style.setProperty("--cursor-x", `${heroX}%`);
+    hero.style.setProperty("--cursor-y", `${heroY}%`);
+  }
+
+  if (cabinet) {
+    const cabinetBounds = cabinet.getBoundingClientRect();
+    const cabinetX = ((x - cabinetBounds.left) / cabinetBounds.width) * 100;
+    const cabinetY = ((y - cabinetBounds.top) / cabinetBounds.height) * 100;
+    cabinet.style.setProperty("--cabinet-x", `${cabinetX}%`);
+    cabinet.style.setProperty("--cabinet-y", `${cabinetY}%`);
+
+    artifacts.forEach((artifact, index) => {
+      const depth = (index + 1) * 0.75;
+      artifact.style.setProperty("--tx", `${(cabinetX - 50) / depth}px`);
+      artifact.style.setProperty("--ty", `${(cabinetY - 50) / (depth * 1.5)}px`);
+    });
+  }
+}
+
+function setScrollMotion() {
+  const scrollY = window.scrollY;
+  const progress = Math.min(scrollY / Math.max(window.innerHeight * 0.85, 1), 1);
+
+  root.style.setProperty("--scroll-y", scrollY.toFixed(2));
+  root.style.setProperty("--portal-scale", (1 + progress * 0.18).toFixed(3));
+  root.style.setProperty("--hero-opacity", Math.max(1 - progress * 1.4, 0).toFixed(3));
+}
 
 artifacts.forEach((artifact) => {
   const label = document.createElement("span");
@@ -17,25 +57,10 @@ function selectArtifact(artifact) {
 
   panel.classList.add("is-visible");
   panel.setAttribute("aria-hidden", "false");
-  panel.querySelector("h2").textContent = artifact.dataset.title || "Selected Sign";
+  panel.querySelector("h3").textContent = artifact.dataset.title || "Selected Sign";
   panel.querySelector("p:last-child").textContent =
     artifact.dataset.copy || "The body has already begun to answer.";
 }
-
-hero?.addEventListener("mousemove", (event) => {
-  const bounds = hero.getBoundingClientRect();
-  const x = ((event.clientX - bounds.left) / bounds.width) * 100;
-  const y = ((event.clientY - bounds.top) / bounds.height) * 100;
-
-  hero.style.setProperty("--cursor-x", `${x}%`);
-  hero.style.setProperty("--cursor-y", `${y}%`);
-
-  artifacts.forEach((artifact, index) => {
-    const depth = (index + 1) * 0.7;
-    artifact.style.setProperty("--tx", `${(x - 50) / depth}px`);
-    artifact.style.setProperty("--ty", `${(y - 50) / (depth * 1.4)}px`);
-  });
-});
 
 artifacts.forEach((artifact) => {
   artifact.addEventListener("mouseenter", () => selectArtifact(artifact));
@@ -43,15 +68,6 @@ artifacts.forEach((artifact) => {
   artifact.addEventListener("click", () => selectArtifact(artifact));
 });
 
-form?.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const button = form.querySelector("button");
-  const input = form.querySelector("input");
-
-  if (!button || !input) return;
-
-  button.textContent = input.value ? "Thank You" : "Enter Email";
-  setTimeout(() => {
-    button.textContent = "Sign Up";
-  }, 1800);
-});
+window.addEventListener("mousemove", setPointerPosition);
+window.addEventListener("scroll", setScrollMotion, { passive: true });
+setScrollMotion();
