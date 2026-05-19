@@ -24,10 +24,7 @@
 
     <header class="navbar">
       <a class="brand" href="#" aria-label="Oracle of the Body home">
-        <span class="logo-mark" aria-hidden="true">
-          <span class="logo-face"></span>
-          <span class="logo-orbit"></span>
-        </span>
+        <img class="logo-image" src="assets/oracle-logo.png" alt="Oracle of the Body logo" />
         <span>
           <strong>Oracle of the Body</strong>
           <small>Seeking Divine Clarity</small>
@@ -87,33 +84,57 @@
           <div class="corner corner-bl"></div>
           <div class="corner corner-br"></div>
 
+          <div class="cabinet-logo">
+            <img src="assets/oracle-logo.png" alt="Oracle of the Body logo" />
+            <span>Oracle of the Body</span>
+          </div>
+
           <div class="cabinet-copy">
-            <p class="section-kicker">Interactive Body Oracle</p>
-            <h2 id="cabinet-title">Read the body as a living oracle.</h2>
+            <p class="section-kicker">Interactive Anatomy Oracle</p>
+            <h2 id="cabinet-title">Let the body reveal the path.</h2>
             <p>
-              Hover or tap an object inside the cabinet. Each symbol reveals a small reflection, blending the mystical stage feeling with Oracle of the Body's softer healing palette.
+              Hover or tap the illuminated anatomy points to discover how each region may connect with divine healing, nervous system wisdom, and embodied clarity.
             </p>
           </div>
 
-          <button class="artifact anatomy-skull" type="button" data-title="Mind" data-copy="Notice the story the body keeps repeating. Begin there."></button>
-          <button class="artifact oracle-hand" type="button" data-title="Hands" data-copy="The hands reveal what you reach for, hold, resist, and bless.">
-            <span class="palm-line line-one"></span>
-            <span class="palm-line line-two"></span>
-            <span class="palm-line line-three"></span>
-            <span class="moon moon-1"></span>
-            <span class="moon moon-2"></span>
-            <span class="moon moon-3"></span>
-            <span class="moon moon-4"></span>
-            <span class="moon moon-5"></span>
-            <span class="moon moon-6"></span>
-          </button>
-          <button class="artifact tarot-card" type="button" data-title="Oracle" data-copy="A card is a mirror. The body is the reader."></button>
-          <button class="artifact body-map" type="button" data-title="Body Map" data-copy="Follow sensation like a constellation: pressure, heat, pulse, image, meaning."></button>
+          <div class="anatomy-stage" aria-label="Interactive human anatomy map">
+            <div class="moon-wheel" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div class="anatomy-figure" aria-hidden="true">
+              <span class="aura-ring ring-head"></span>
+              <span class="aura-ring ring-heart"></span>
+              <span class="aura-ring ring-belly"></span>
+              <span class="figure-head"></span>
+              <span class="figure-neck"></span>
+              <span class="figure-torso"></span>
+              <span class="figure-pelvis"></span>
+              <span class="figure-arm arm-left"></span>
+              <span class="figure-arm arm-right"></span>
+              <span class="figure-leg leg-left"></span>
+              <span class="figure-leg leg-right"></span>
+              <span class="spine"></span>
+              <span class="ribcage"></span>
+              <span class="heart-organ"></span>
+              <span class="lung lung-left"></span>
+              <span class="lung lung-right"></span>
+              <span class="belly-organ"></span>
+            </div>
+
+            <button class="anatomy-point point-crown" type="button" data-title="Crown & Mind" data-copy="Divine healing begins by softening mental noise. This point invites prayer, discernment, and trust in higher counsel.">Crown</button>
+            <button class="anatomy-point point-throat" type="button" data-title="Throat" data-copy="The throat is the bridge between inner truth and outer expression. Healing asks for honest words, clean boundaries, and sacred sound.">Throat</button>
+            <button class="anatomy-point point-heart" type="button" data-title="Heart & Lungs" data-copy="The chest holds grief, devotion, breath, and courage. Divine healing here restores receptivity, forgiveness, and the ability to receive love.">Heart</button>
+            <button class="anatomy-point point-hands" type="button" data-title="Hands" data-copy="The hands reveal what you reach for, hold, resist, and bless. Healing moves through touch, creation, service, and release.">Hands</button>
+            <button class="anatomy-point point-solar" type="button" data-title="Solar Plexus" data-copy="The solar plexus carries will, identity, and embodied power. Healing here turns control into confidence and fear into devotion.">Solar</button>
+            <button class="anatomy-point point-womb" type="button" data-title="Sacral Bowl" data-copy="The pelvis and sacral bowl speak through creativity, intimacy, and stored emotion. Divine healing restores flow, pleasure, and energetic safety.">Sacral</button>
+            <button class="anatomy-point point-feet" type="button" data-title="Feet & Grounding" data-copy="The feet translate spirit into lived reality. Healing here asks you to return to the earth, slow down, and choose the next true step.">Feet</button>
+          </div>
 
           <aside class="reading-panel" aria-live="polite" aria-hidden="true">
-            <p class="panel-kicker">Selected Sign</p>
-            <h3>Choose an object</h3>
-            <p>Hover or tap the cabinet symbols to receive a small body oracle.</p>
+            <p class="panel-kicker">Body Oracle</p>
+            <h3>Choose a point</h3>
+            <p>Hover or tap an illuminated anatomy point to receive a divine-healing reflection.</p>
           </aside>
         </div>
       </section>

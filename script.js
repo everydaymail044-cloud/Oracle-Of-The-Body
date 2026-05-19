@@ -2,7 +2,7 @@ const root = document.documentElement;
 const aura = document.querySelector(".cursor-aura");
 const hero = document.querySelector(".hero");
 const cabinet = document.querySelector(".cabinet");
-const artifacts = [...document.querySelectorAll(".artifact")];
+const anatomyPoints = [...document.querySelectorAll(".anatomy-point")];
 const panel = document.querySelector(".reading-panel");
 
 function setPointerPosition(event) {
@@ -26,10 +26,10 @@ function setPointerPosition(event) {
     cabinet.style.setProperty("--cabinet-x", `${cabinetX}%`);
     cabinet.style.setProperty("--cabinet-y", `${cabinetY}%`);
 
-    artifacts.forEach((artifact, index) => {
+    anatomyPoints.forEach((point, index) => {
       const depth = (index + 1) * 0.75;
-      artifact.style.setProperty("--tx", `${(cabinetX - 50) / depth}px`);
-      artifact.style.setProperty("--ty", `${(cabinetY - 50) / (depth * 1.5)}px`);
+      point.style.setProperty("--tx", `${(cabinetX - 50) / depth}px`);
+      point.style.setProperty("--ty", `${(cabinetY - 50) / (depth * 1.5)}px`);
     });
   }
 }
@@ -43,29 +43,29 @@ function setScrollMotion() {
   root.style.setProperty("--hero-opacity", Math.max(1 - progress * 1.4, 0).toFixed(3));
 }
 
-artifacts.forEach((artifact) => {
+anatomyPoints.forEach((point) => {
   const label = document.createElement("span");
-  label.className = "artifact-label";
-  label.textContent = artifact.dataset.title || "Oracle";
-  artifact.append(label);
+  label.className = "anatomy-label";
+  label.textContent = point.dataset.title || "Oracle";
+  point.append(label);
 });
 
-function selectArtifact(artifact) {
-  artifacts.forEach((item) => item.classList.toggle("is-active", item === artifact));
+function selectPoint(point) {
+  anatomyPoints.forEach((item) => item.classList.toggle("is-active", item === point));
 
   if (!panel) return;
 
   panel.classList.add("is-visible");
   panel.setAttribute("aria-hidden", "false");
-  panel.querySelector("h3").textContent = artifact.dataset.title || "Selected Sign";
+  panel.querySelector("h3").textContent = point.dataset.title || "Selected Sign";
   panel.querySelector("p:last-child").textContent =
-    artifact.dataset.copy || "The body has already begun to answer.";
+    point.dataset.copy || "The body has already begun to answer.";
 }
 
-artifacts.forEach((artifact) => {
-  artifact.addEventListener("mouseenter", () => selectArtifact(artifact));
-  artifact.addEventListener("focus", () => selectArtifact(artifact));
-  artifact.addEventListener("click", () => selectArtifact(artifact));
+anatomyPoints.forEach((point) => {
+  point.addEventListener("mouseenter", () => selectPoint(point));
+  point.addEventListener("focus", () => selectPoint(point));
+  point.addEventListener("click", () => selectPoint(point));
 });
 
 window.addEventListener("mousemove", setPointerPosition);
