@@ -10,6 +10,9 @@
   --copper: #c68e6a;
   --ink: #1e1524;
   --glass: rgba(255, 255, 255, 0.38);
+  --vintage-teal: #6b9ba8;
+  --vintage-cream: #e8dcc8;
+  --vintage-gold: #c9a876;
 }
 
 * {
@@ -136,6 +139,7 @@ input {
   justify-content: space-between;
   gap: 1rem;
   padding: 1.35rem clamp(1rem, 5vw, 4rem);
+  flex-wrap: wrap;
 }
 
 .brand {
@@ -191,34 +195,71 @@ input {
   color: var(--copper);
 }
 
-.pill-button {
+/* Unified Button Styles */
+.btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 3rem;
-  padding: 0.85rem 1.25rem;
+  padding: 0.85rem 1.5rem;
   border-radius: 999px;
   border: 1px solid rgba(214, 179, 106, 0.5);
   font-size: 0.92rem;
-  transition: transform 220ms ease, background 220ms ease, box-shadow 220ms ease;
+  transition: transform 220ms ease, background 220ms ease, box-shadow 220ms ease, color 220ms ease;
+  font-family: inherit;
+  cursor: pointer;
 }
 
-.pill-button:hover {
+.btn:hover {
   transform: translateY(-2px) scale(1.02);
 }
 
-.pill-button.soft,
-.pill-button.glass {
-  background: rgba(255, 255, 255, 0.42);
-  backdrop-filter: blur(18px);
-  box-shadow: 0 1rem 2rem rgba(126, 97, 112, 0.12);
-}
-
-.pill-button.gold {
+.btn-primary {
   color: white;
   border-color: transparent;
   background: linear-gradient(90deg, var(--gold), var(--copper));
   box-shadow: 0 1rem 2.5rem rgba(198, 142, 106, 0.24);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 1.5rem 3rem rgba(198, 142, 106, 0.35);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 1rem 2rem rgba(126, 97, 112, 0.12);
+  color: var(--plum);
+  border: 1px solid rgba(214, 179, 106, 0.3);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--copper);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid rgba(214, 179, 106, 0.5);
+  color: var(--plum);
+}
+
+.btn-outline:hover {
+  background: rgba(214, 179, 106, 0.1);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.btn-small {
+  min-height: 2.5rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.85rem;
+}
+
+.btn-lg {
+  min-height: 3.5rem;
+  padding: 1rem 2rem;
+  font-size: 1.05rem;
 }
 
 .hero {
@@ -439,6 +480,7 @@ h1 {
 .p5 { left: 46%; top: 16%; animation-delay: -2s; }
 .p6 { left: 52%; top: 80%; animation-delay: -2.5s; }
 
+/* Cabinet Section - Vintage Card Style */
 .cabinet-section {
   position: relative;
   z-index: 4;
@@ -455,23 +497,42 @@ h1 {
   align-items: center;
   justify-items: center;
   overflow: visible;
-  border: none;
-  background: transparent;
-  box-shadow: none;
-  padding: clamp(2rem, 5vw, 4rem) 0;
+  border: 3px solid var(--vintage-gold);
+  background: linear-gradient(135deg, var(--vintage-teal) 0%, var(--vintage-teal) 100%);
+  box-shadow: 
+    inset 0 0 0 1px rgba(201, 168, 118, 0.3),
+    0 8px 32px rgba(107, 155, 168, 0.25),
+    0 0 60px rgba(107, 155, 168, 0.15);
+  padding: clamp(2rem, 6vw, 4rem);
+  border-radius: 8px;
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
-.cabinet::before,
+.cabinet::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  border: 2px solid rgba(201, 168, 118, 0.4);
+  pointer-events: none;
+  border-radius: 4px;
+}
+
 .cabinet::after {
-  display: none;
-}
-
-.corner {
-  display: none;
-}
-
-.cabinet-logo {
-  display: none;
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  border-radius: 8px;
 }
 
 .cabinet-copy {
@@ -481,17 +542,53 @@ h1 {
   margin: 0 auto;
   padding: 0;
   text-align: center;
-  color: #7e6170;
+  color: var(--vintage-cream);
 }
 
 .script-line {
-  margin: 0 auto 1.2rem;
-  color: #7e6170;
-  font-size: clamp(1.2rem, 3vw, 2rem);
+  margin: 0 auto 1rem;
+  color: var(--vintage-cream);
+  font-size: clamp(1.4rem, 3.3vw, 2.2rem);
   font-style: italic;
   font-weight: 700;
-  letter-spacing: 0.04rem;
-  text-shadow: none;
+  letter-spacing: 0.06rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-family: "Georgia", serif;
+}
+
+.cabinet h2 {
+  display: block;
+  min-height: auto;
+  margin: 0.5rem auto 1.2rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--vintage-cream);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 400;
+  letter-spacing: 0.08rem;
+  line-height: 1.15;
+  text-transform: none;
+  box-shadow: none;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.cabinet-copy p:last-child {
+  color: var(--vintage-cream);
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  margin: 0.8rem auto 1.8rem;
+  line-height: 1.6;
+  font-style: italic;
+  letter-spacing: 0.02rem;
+  max-width: 100%;
+}
+
+.cabinet-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  justify-content: center;
+  margin-top: 2rem;
 }
 
 .section-kicker,
@@ -504,11 +601,6 @@ h1 {
   text-transform: uppercase;
 }
 
-.cabinet-copy .section-kicker,
-.panel-kicker {
-  color: var(--rose);
-}
-
 h2 {
   color: #7e6170;
   font-size: clamp(3rem, 7vw, 6.5rem);
@@ -516,165 +608,11 @@ h2 {
   line-height: 0.96;
 }
 
-.cabinet h2 {
-  display: block;
-  min-height: auto;
-  margin: 0.75rem auto 1.2rem;
-  padding: 0;
-  border: none;
-  background: transparent;
-  color: #7e6170;
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  font-weight: 400;
-  letter-spacing: normal;
-  line-height: 1.1;
-  text-transform: none;
-  box-shadow: none;
-}
-
-.cabinet-copy p:last-child,
-.section-heading p {
-  max-width: 42rem;
-  margin-inline: auto;
-  line-height: 1.7;
-  font-size: clamp(1rem, 2vw, 1.1rem);
-  color: #7e6170;
-  font-style: normal;
-  letter-spacing: normal;
-  text-transform: none;
-}
-
-.cabinet-copy p:last-child {
-  color: #7e6170;
-  font-size: clamp(0.95rem, 1.8vw, 1.05rem);
-  margin-top: 0.8rem;
-}
-
-.anatomy-stage {
-  display: none;
-}
-
-.moon-wheel {
-  display: none;
-}
-
-.moon-wheel span {
-  display: none;
-}
-
-.anatomy-figure {
-  display: none;
-}
-
-.anatomy-figure > span {
-  display: none;
-}
-
-.aura-ring {
-  display: none;
-}
-
-.figure-head,
-.figure-neck,
-.figure-torso,
-.figure-pelvis,
-.figure-arm,
-.figure-leg,
-.spine,
-.ribcage,
-.heart-organ,
-.lung,
-.belly-organ {
-  display: none;
-}
-
-.anatomy-point {
-  display: none;
-}
-
-.anatomy-point::before {
-  display: none;
-}
-
-.anatomy-point:hover,
-.anatomy-point:focus-visible,
-.anatomy-point.is-active {
-  display: none;
-}
-
-.anatomy-point:focus-visible {
-  display: none;
-}
-
-.body-menu {
-  display: none;
-}
-
-.anatomy-label {
-  display: none;
-}
-
-.anatomy-point:hover .anatomy-label,
-.anatomy-point:focus-visible .anatomy-label,
-.anatomy-point.is-active .anatomy-label {
-  display: none;
-}
-
-.reading-panel {
-  display: none;
-}
-
-.cabinet-hand {
-  display: none;
-}
-
-.cabinet-hand::before {
-  display: none;
-}
-
-.hand-line {
-  display: none;
-}
-
-.cabinet-card {
-  display: none;
-}
-
-.cabinet-card::before {
-  display: none;
-}
-
-.cabinet-card::after {
-  display: none;
-}
-
-.card-tall {
-  display: none;
-}
-
-.card-low {
-  display: none;
-}
-
-.cabinet-crystal {
-  display: none;
-}
-
-.reading-panel.is-visible {
-  display: none;
-}
-
-.reading-panel h3 {
-  display: none;
-}
-
-.reading-panel p:last-child {
-  display: none;
-}
-
 .cards-section,
 .healing-section,
-.journey-section {
+.journey-section,
+.testimonials-section,
+.final-cta {
   position: relative;
   z-index: 5;
   padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 5vw, 4rem);
@@ -689,6 +627,14 @@ h2 {
   margin-bottom: 1rem;
 }
 
+.section-heading p {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: #866c78;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .oracle-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(clamp(15rem, 40vw, 20rem), 1fr));
@@ -701,6 +647,7 @@ h2 {
   aspect-ratio: 1;
   cursor: pointer;
   perspective: 1000px;
+  position: relative;
 }
 
 .card-face {
@@ -724,6 +671,11 @@ h2 {
   background: rgba(214, 179, 106, 0.1);
   border: 1px solid rgba(214, 179, 106, 0.3);
   transform: rotateY(180deg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .oracle-card:hover .card-front {
@@ -820,12 +772,49 @@ h2 {
 .timeline h3 {
   font-size: 1.2rem;
   color: #7e6170;
+  margin-bottom: 0.5rem;
+}
+
+.timeline p {
+  font-size: 0.9rem;
+  color: #7e6170;
+}
+
+.testimonials-section {
+  background: rgba(214, 179, 106, 0.04);
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(15rem, 40vw, 22rem), 1fr));
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+  margin: 0 auto;
+  max-width: 90rem;
+}
+
+.testimonial {
+  padding: 2rem 1.5rem;
+  border: 1px solid rgba(214, 179, 106, 0.2);
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.6);
+  text-align: center;
+}
+
+.testimonial-text {
+  font-size: clamp(1rem, 1.8vw, 1.1rem);
+  color: #7e6170;
+  line-height: 1.8;
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+.testimonial-author {
+  font-size: 0.95rem;
+  color: var(--gold);
+  font-weight: 600;
 }
 
 .final-cta {
-  position: relative;
-  z-index: 5;
-  padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 5vw, 4rem);
   display: grid;
   place-items: center;
   min-height: 50vh;
@@ -872,6 +861,29 @@ h2 {
   border-top: 1px solid rgba(214, 179, 106, 0.1);
 }
 
+.footer-content {
+  max-width: 90rem;
+  margin: 0 auto;
+}
+
+.footer-nav {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.footer-nav a {
+  font-size: 0.85rem;
+  color: #7e6170;
+  transition: color 200ms ease;
+}
+
+.footer-nav a:hover {
+  color: var(--gold);
+}
+
 /* Animations */
 @keyframes pulse {
   0%, 100% { opacity: 1; }
@@ -907,11 +919,10 @@ h2 {
   }
 }
 
-/* Mobile Responsive Adjustments */
+/* Mobile Responsive */
 @media (max-width: 640px) {
   .navbar {
     padding: 1rem clamp(0.8rem, 4vw, 2rem);
-    flex-wrap: wrap;
   }
 
   .nav-links {
@@ -923,7 +934,7 @@ h2 {
     font-size: 0.8rem;
   }
 
-  .pill-button {
+  .btn {
     padding: 0.7rem 1rem;
     font-size: 0.85rem;
     min-height: 2.5rem;
@@ -947,14 +958,22 @@ h2 {
     font-size: clamp(0.95rem, 1.8vw, 1.1rem);
   }
 
+  .cabinet {
+    margin: 1rem;
+  }
+
   .cabinet-copy {
     width: calc(100% - 1rem);
-    padding-top: 1.5rem;
+    padding: 0;
   }
 
   .script-line {
     font-size: clamp(1rem, 2.5vw, 1.5rem);
     margin-bottom: 0.8rem;
+  }
+
+  .cabinet h2 {
+    font-size: clamp(1.8rem, 4.5vw, 3rem);
   }
 
   .cabinet-copy p:last-child {
